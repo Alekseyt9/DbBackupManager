@@ -15,3 +15,7 @@
 /BackupManagerTests/bin/Debug/net7.0
 /.vs/BackupManager/DesignTimeBuild
 /*.user
+/BackupManagerTests/appsettings.js
+/BackupManager/appsettings.json
+/BackupManagerTests/appsettings.json
+/.vs/BackupManager/config

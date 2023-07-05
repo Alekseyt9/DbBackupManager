@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.Extensions.Configuration;
 using Xunit;
 using YandexDisk.Client;
 using YandexDisk.Client.Clients;
@@ -9,12 +10,20 @@ namespace BackupManagerTests
 {
     public class YandexApiTest
     {
+        private IConfiguration _configuration;
+
+        public YandexApiTest()
+        {
+            var builder = new ConfigurationBuilder().AddJsonFile(@"appsettings.json");
+            _configuration = builder.Build();
+        }
+
         [Fact]
         public async Task Test()
         {
             var dir = "/backups/test1/";
 
-            var oauthToken = "y0_AgAAAAALO2EBAAoi3wAAAADnCMTWyUDoupLASx2guxg8GITw4V8EA0s";
+            var oauthToken = _configuration["yandex_token"];
             var diskApi = new DiskHttpApi(oauthToken);
 
             try
