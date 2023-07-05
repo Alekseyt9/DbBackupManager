@@ -13,3 +13,5 @@
 /BackupManager/.vs/BackupManager/DesignTimeBuild
 /BackupManager/.vs/BackupManager/FileContentIndex
 /BackupManagerTests/bin/Debug/net7.0
+/.vs/BackupManager/DesignTimeBuild
+/*.user
