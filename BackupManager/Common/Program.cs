@@ -1,4 +1,4 @@
-﻿namespace BackupManager
+﻿namespace BackupManager.Common
 {
     internal class Program
     {
