@@ -1,11 +1,9 @@
 ﻿
 
-
 namespace BackupManager
 {
-
-    internal interface ISourceProvider<T>
+    public interface ISourceProvider
     {
-        SourceData Get(T props);
+        Task<SourceData> Get(ProviderContext ctx, IDictionary<string, string> props);
     }
 }

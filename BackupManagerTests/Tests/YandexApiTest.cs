@@ -1,5 +1,4 @@
-﻿
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Xunit;
 using YandexDisk.Client;
 using YandexDisk.Client.Clients;
@@ -10,7 +9,7 @@ namespace BackupManagerTests
 {
     public class YandexApiTest
     {
-        private IConfiguration _configuration;
+        private readonly IConfiguration _configuration;
 
         public YandexApiTest()
         {

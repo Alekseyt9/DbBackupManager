@@ -2,8 +2,9 @@
 
 namespace BackupManager
 {
-    public interface IDestinationProvider<T>
+    public interface IDestinationProvider
     {
-        void Set(T props, SourceData data);
+        Task Set(ProviderContext ctx, IDictionary<string, string> props, SourceData data);
+
     }
 }
