@@ -7,6 +7,10 @@ namespace BackupManager
         static void Main(string[] args)
         {
             var tm = new TaskManager();
+            while(Console.ReadLine() != "/q")
+            {
+
+            }
         }
     }
 }

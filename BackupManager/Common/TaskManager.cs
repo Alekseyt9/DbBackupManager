@@ -1,77 +1,51 @@
 ﻿
-using System.Reflection;
+using System.Collections.Specialized;
 using Newtonsoft.Json;
+using Quartz;
 
 namespace BackupManager
 {
     internal class TaskManager
     {
-        private readonly Dictionary<string, ISourceProvider> _sourceProviders = new();
-        private readonly Dictionary<string, IDestinationProvider> _destinationProviders = new();
 
         public TaskManager()
         {
-            InitProviders();
-            RunTasks();
+            Task.Run(RunTasks);
         }
 
-        private void RunTasks()
+        private async Task RunTasks()
         {
-            using var r = new StreamReader("appsettings.json");
-            var str = r.ReadToEnd();
+            using var reader = new StreamReader("appsettings.json");
+            var str = await reader.ReadToEndAsync();
             var tasksModel = JsonConvert.DeserializeObject<TasksModel>(str);
 
+            var properties = new NameValueCollection();
+            var scheduler = await SchedulerBuilder.Create(properties).BuildScheduler();
+
+            var i = 0;
             foreach (var task in tasksModel.Tasks)
             {
                 var period = task.Schedule.Period;
 
+                var job = JobBuilder.Create<Job>()
+                    .WithIdentity($"job{i}", "group1")
+                    .UsingJobData("params", JsonConvert.SerializeObject(task))
+                    .Build();
+
+                var trigger = TriggerBuilder.Create()
+                    .WithIdentity($"trigger{i}", "group1")
+                    .StartNow()
+                    .WithSimpleSchedule(x => x
+                        .WithIntervalInSeconds(10)
+                        .RepeatForever())
+                    .Build();
+
+                await scheduler.ScheduleJob(job, trigger);
             }
+
+            await scheduler.Start();
         }
 
-        private async Task RunTask(TaskModel task)
-        {
-            var logger = new Logger();
-            try
-            {
-                var srcProv = _sourceProviders[task.Source.Name];
-                var destProv = _destinationProviders[task.Destination.Name];
-                var ctx = new ProviderContext()
-                {
-                    Logger = logger
-                };
-                var data = await srcProv.Get(ctx, task.Source.Properties);
-                await destProv.Set(ctx, task.Destination.Properties, data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-            }
-        }
-
-        private void InitProviders()
-        {
-            var asms = AppDomain.CurrentDomain.GetAssemblies();
-            foreach (var type in asms.SelectMany(x => x.GetTypes()))
-            {
-                if (typeof(ISourceProvider).IsAssignableFrom(type))
-                {
-                    var attr = type.GetCustomAttribute<SourceProviderAttribute>();
-                    if (attr != null)
-                    {
-                        _sourceProviders.Add(attr.Name, (ISourceProvider)Activator.CreateInstance(type));
-                    }
-                }
-
-                if (typeof(IDestinationProvider).IsAssignableFrom(type))
-                {
-                    var attr = type.GetCustomAttribute<DestinationProviderAttribute>();
-                    if (attr != null)
-                    {
-                        _destinationProviders.Add(attr.Name, (IDestinationProvider)Activator.CreateInstance(type));
-                    }
-                }
-            }
-        }
 
     }
 }

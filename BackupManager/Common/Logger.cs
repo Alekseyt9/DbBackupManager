@@ -6,8 +6,12 @@ namespace BackupManager
     {
         public void LogError(string msg)
         {
-            Console.WriteLine("[error]: {msg)}");
+            Console.WriteLine($"[error]: {msg}");
         }
 
+        public void LogMessage(string msg)
+        {
+            Console.WriteLine($"[message]: {msg}");
+        }
     }
 }

@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace BackupManager
 {
-    [SourceProvider("Postgres")]
+    [SourceProvider("postgres")]
     internal class PostgresSourceProvider : SourceProviderBase<PgProviderSettings>
     {
         public override async Task<SourceData> Get(ProviderContext ctx, PgProviderSettings props)
@@ -53,6 +53,7 @@ namespace BackupManager
 
                     //CompressBackup(filePath);
                     //File.Delete(filePath);
+                    return new SourceData() { FilePath = filePath };
                 }
                 catch (Exception exp)
                 {
@@ -64,7 +65,7 @@ namespace BackupManager
                 ctx.Logger.LogError(ex.Message);
             }
 
-            return new SourceData() { FilePath = props.FilePath };
+            return null;
         }
 
         public override PgProviderSettings CreateProps(IDictionary<string, string> props)
