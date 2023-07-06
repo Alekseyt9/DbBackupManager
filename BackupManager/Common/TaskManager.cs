@@ -35,9 +35,7 @@ namespace BackupManager
                 var trigger = TriggerBuilder.Create()
                     .WithIdentity($"trigger{i}", "group1")
                     .StartNow()
-                    .WithSimpleSchedule(x => x
-                        .WithIntervalInSeconds(10)
-                        .RepeatForever())
+                    .WithCronSchedule(period)
                     .Build();
 
                 await scheduler.ScheduleJob(job, trigger);
