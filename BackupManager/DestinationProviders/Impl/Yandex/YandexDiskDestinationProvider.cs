@@ -28,11 +28,18 @@ namespace BackupManager
                 overwrite: true,
                 localFile: data.FilePath,
                 cancellationToken: CancellationToken.None);
+
+            ClearByParam(props.Keep);
         }
 
         public override YandexDiskSettings CreateProps(IDictionary<string, string> props)
         {
             return new YandexDiskSettings(props);
+        }
+
+        private void ClearByParam(int keep)
+        {
+
         }
 
     }
