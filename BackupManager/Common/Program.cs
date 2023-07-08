@@ -6,7 +6,11 @@ namespace BackupManager
     {
         static void Main(string[] args)
         {
-            var tm = new TaskManager(new Logger());
+            var logger = new Logger();
+
+            logger.LogMessage("start");
+
+            var tm = new TaskManager(logger);
             while(Console.ReadLine() != "/q")
             {
 
