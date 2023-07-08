@@ -28,7 +28,9 @@ namespace BackupManager
                 process.ErrorDataReceived += (sender, args) =>
                 {
                     string errMes = null;
-                    if (((Process)sender).ExitCode < 0)
+                    var proc = (Process)sender;
+
+                    if (proc.HasExited && proc.ExitCode < 0)
                     {
                         errMes = $"pg_dump.exe exit code: {process.ExitCode}";
                     }
