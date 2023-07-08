@@ -7,9 +7,11 @@ namespace BackupManager
 {
     internal class TaskManager
     {
+        private ILogger _logger;
 
-        public TaskManager()
+        public TaskManager(ILogger logger)
         {
+            _logger = logger;
             Task.Run(RunTasks);
         }
 
@@ -21,6 +23,8 @@ namespace BackupManager
 
             var properties = new NameValueCollection();
             var scheduler = await SchedulerBuilder.Create(properties).BuildScheduler();
+
+            _logger.LogMessage($"Task count: {tasksModel.Tasks.Count}");
 
             var i = 0;
             foreach (var task in tasksModel.Tasks)
