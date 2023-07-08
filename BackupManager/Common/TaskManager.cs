@@ -19,11 +19,10 @@ namespace BackupManager
         {
             try
             {
-                _logger.LogMessage("1");
-                using var reader = new StreamReader("appsettings.json");
+                using var reader = new StreamReader( Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "appsettings.json"));
                 var str = await reader.ReadToEndAsync();
+
                 var tasksModel = JsonConvert.DeserializeObject<TasksModel>(str);
-                _logger.LogMessage("2");
 
                 var properties = new NameValueCollection();
                 var scheduler = await SchedulerBuilder.Create(properties).BuildScheduler();
