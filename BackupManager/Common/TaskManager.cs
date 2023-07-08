@@ -17,9 +17,11 @@ namespace BackupManager
 
         private async Task RunTasks()
         {
+            _logger.LogMessage("1");
             using var reader = new StreamReader("appsettings.json");
-            var str = await reader.ReadToEndAsync();
+            var str = reader.ReadToEnd();
             var tasksModel = JsonConvert.DeserializeObject<TasksModel>(str);
+            _logger.LogMessage("2");
 
             var properties = new NameValueCollection();
             var scheduler = await SchedulerBuilder.Create(properties).BuildScheduler();
