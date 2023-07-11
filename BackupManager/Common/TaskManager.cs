@@ -29,6 +29,7 @@ namespace BackupManager
 
                 _logger.LogMessage($"Task count: {tasksModel.Tasks.Count}");
 
+                /*
                 var i = 0;
                 foreach (var task in tasksModel.Tasks)
                 {
@@ -51,7 +52,7 @@ namespace BackupManager
 
                         await scheduler.ScheduleJob(job, trigger);
                     }
-                }
+                }*/
 
                 await scheduler.Start();
             }
