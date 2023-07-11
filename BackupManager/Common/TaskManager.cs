@@ -2,6 +2,7 @@
 using System.Collections.Specialized;
 using Newtonsoft.Json;
 using Quartz;
+using Quartz.Impl;
 
 namespace BackupManager
 {
@@ -24,12 +25,15 @@ namespace BackupManager
 
                 var tasksModel = JsonConvert.DeserializeObject<TasksModel>(str);
 
-                var properties = new NameValueCollection();
-                var scheduler = await SchedulerBuilder.Create(properties).BuildScheduler();
+                //var properties = new NameValueCollection();
+                //var scheduler = await SchedulerBuilder.Create(properties).BuildScheduler();
+
+                var schedulerFactory = new StdSchedulerFactory();
+                var scheduler = await schedulerFactory.GetScheduler();
+                await scheduler.Start();
 
                 _logger.LogMessage($"Task count: {tasksModel.Tasks.Count}");
 
-                /*
                 var i = 0;
                 foreach (var task in tasksModel.Tasks)
                 {
@@ -52,9 +56,9 @@ namespace BackupManager
 
                         await scheduler.ScheduleJob(job, trigger);
                     }
-                }*/
+                }
 
-                await scheduler.Start();
+                //await scheduler.Start();
             }
             catch (Exception ex)
             {
