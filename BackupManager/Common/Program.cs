@@ -12,6 +12,8 @@ namespace BackupManager
             var tm = new TaskManager(logger);
 
             Console.ReadLine();
+            Console.WriteLine("rl");
+            Console.ReadLine();
         }
     }
 }
