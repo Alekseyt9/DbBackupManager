@@ -15,7 +15,10 @@ namespace BackupManager
             Host = props["host"];
             User = props["user"];
             Password = props["password"];
+            PeriodName = props["periodName"];
         }
+
+        public string PeriodName { get; set; }
 
         public string PgDumpPath { get; set; }
 

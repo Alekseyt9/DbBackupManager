@@ -29,7 +29,7 @@ namespace BackupManager
                 localFile: data.FilePath,
                 cancellationToken: CancellationToken.None);
 
-            ClearByParam(props.Keep);
+            //await ClearByParam(diskApi, data, props.MaxCount, dir);
         }
 
         public override YandexDiskSettings CreateProps(IDictionary<string, string> props)
@@ -37,9 +37,21 @@ namespace BackupManager
             return new YandexDiskSettings(props);
         }
 
-        private void ClearByParam(int keep)
+        private async Task ClearByParam(DiskHttpApi diskApi, SourceData data, int maxCount, string dir)
         {
-
+            //$"{props.DatabaseName}_{props.PeriodName}_{DateTime.Now:dd_MM_yy_HH_mm_ss}.psql"
+            var arr = Path.GetFileName(data.FilePath).Split("_");
+            var pref = string.Join("_", arr.Skip(2));
+            var fileInfos = await diskApi.MetaInfo.GetFilesInfoAsync(new FilesResourceRequest()
+            {
+                Limit = 100, 
+                Path = dir
+            });
+            var list = new List<Resource>();
+            foreach (var item in fileInfos.Items.Where(x => x.Name.StartsWith(pref)).OrderByDescending(x => x.Created).Skip(maxCount))
+            {
+                list.Add(item);
+            }
         }
 
     }

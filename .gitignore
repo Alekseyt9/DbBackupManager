@@ -20,3 +20,9 @@
 /BackupManagerTests/appsettings.json
 /.vs/BackupManager/config
 /.vs/ProjectEvaluation
+/YandexDisk.Client/bin/Debug/net6
+/YandexDisk.Client/bin/Debug
+/YandexDisk.Client/obj/Debug/net6
+/YandexDisk.Client/obj/Debug/net7
+/YandexDisk.Client/obj/Debug/netstandard2.0
+/YandexDisk.Client/obj

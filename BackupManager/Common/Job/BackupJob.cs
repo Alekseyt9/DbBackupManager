@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace BackupManager
 {
-    public class Job : IJob
+    public class BackupJob : IJob
     {
         private readonly Dictionary<string, ISourceProvider> _sourceProviders = new();
         private readonly Dictionary<string, IDestinationProvider> _destinationProviders = new();
@@ -14,22 +14,25 @@ namespace BackupManager
         {
             InitProviders();
             var parsStr = context.JobDetail.JobDataMap.GetString("params");
-            var task = JsonConvert.DeserializeObject<TaskModel>(parsStr);
-            await RunTask(task);
+            var pars = JsonConvert.DeserializeObject<BackupJobParams>(parsStr);
+            await RunTask(pars);
         }
 
-        private async Task RunTask(TaskModel task)
+        private async Task RunTask(BackupJobParams pars)
         {
             var logger = new Logger();
             try
             {
+                var task = pars.Task;
                 var srcProv = _sourceProviders[task.Source.Name];
                 var destProv = _destinationProviders[task.Destination.Name];
                 var ctx = new ProviderContext()
                 {
                     Logger = logger
                 };
-                var data = await srcProv.Get(ctx, task.Source.Properties);
+                var props = new Dictionary<string, string>(task.Source.Properties);
+                props.Add("periodName", pars.Period.Name);
+                var data = await srcProv.Get(ctx, props);
                 await destProv.Set(ctx, task.Destination.Properties, data);
                 srcProv.Finish(data);
 

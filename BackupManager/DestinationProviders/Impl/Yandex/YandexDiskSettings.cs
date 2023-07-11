@@ -10,14 +10,14 @@ namespace BackupManager
         {
             DiskFolder = props["diskFolder"];
             Token = props["token"];
-            Keep = int.Parse(props["keep"]);
+            MaxCount = int.Parse(props["maxCount"]);
         }
 
         public string DiskFolder { get; set; }
 
         public string Token { get; set; }
 
-        public int Keep { get; set; }
+        public int MaxCount { get; set; }
 
     }
 

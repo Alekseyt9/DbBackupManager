@@ -12,7 +12,10 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Quartz" Version="3.6.3" />
-    <PackageReference Include="YandexDisk.Client" Version="1.3.27" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\YandexDisk.Client\YandexDisk.Client.csproj" />
   </ItemGroup>
 
   <ItemGroup>

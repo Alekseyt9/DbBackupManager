@@ -15,7 +15,7 @@ namespace BackupManager
                     FileName = props.PgDumpPath
                 };
                 var filePath = Path.Combine(props.FilePath,
-                    $"{props.DatabaseName}_{DateTime.Now:dd_MM_yy_HH_mm_ss}.psql");
+                    $"{props.DatabaseName}_{props.PeriodName}_{DateTime.Now:dd_MM_yy_HH_mm_ss}.psql");
 
                 //pg_dump -Fp -h 172.28.50.25 -p 5433 -U postgres -f "d:\temp\tstpg_20_10_2021.psql" -b tstpg
                 info.Arguments = $"-Fp -h {props.Host} -p {props.Port} -U {props.User} -f \"{filePath}\" -b {props.DatabaseName}";

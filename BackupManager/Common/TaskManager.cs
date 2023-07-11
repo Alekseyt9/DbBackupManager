@@ -32,20 +32,25 @@ namespace BackupManager
                 var i = 0;
                 foreach (var task in tasksModel.Tasks)
                 {
-                    var period = task.Schedule.Period;
+                    foreach (var per in task.Schedule.Periods)
+                    {
+                        var job = JobBuilder.Create<BackupJob>()
+                            .WithIdentity($"job{i}_{per.Name}", "group1")
+                            .UsingJobData("params", JsonConvert.SerializeObject(new BackupJobParams()
+                            {
+                                Task = task,
+                                Period = per
+                            }))
+                            .Build();
 
-                    var job = JobBuilder.Create<Job>()
-                        .WithIdentity($"job{i}", "group1")
-                        .UsingJobData("params", JsonConvert.SerializeObject(task))
-                        .Build();
+                        var trigger = TriggerBuilder.Create()
+                            .WithIdentity($"trigger{i}_{per.Name}", "group1")
+                            .StartNow()
+                            .WithCronSchedule(per.Cron)
+                            .Build();
 
-                    var trigger = TriggerBuilder.Create()
-                        .WithIdentity($"trigger{i}", "group1")
-                        .StartNow()
-                        .WithCronSchedule(period)
-                        .Build();
-
-                    await scheduler.ScheduleJob(job, trigger);
+                        await scheduler.ScheduleJob(job, trigger);
+                    }
                 }
 
                 await scheduler.Start();

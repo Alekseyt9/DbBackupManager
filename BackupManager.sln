@@ -5,7 +5,11 @@ VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackupManager", "BackupManager\BackupManager.csproj", "{1AD35AEE-2D99-4F1E-85D4-D8CEB8B7428F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackupManagerTests", "BackupManagerTests\BackupManagerTests.csproj", "{53FF3DFE-C764-4426-B86C-AADC3E7602F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackupManagerTests", "BackupManagerTests\BackupManagerTests.csproj", "{53FF3DFE-C764-4426-B86C-AADC3E7602F7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Others", "Others", "{5A11DED2-D650-48DB-ABBE-622BA386B471}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YandexDisk.Client", "YandexDisk.Client\YandexDisk.Client.csproj", "{6AC26223-D9AB-4DE0-B8C0-7AFE562E1708}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,9 +25,16 @@ Global
 		{53FF3DFE-C764-4426-B86C-AADC3E7602F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53FF3DFE-C764-4426-B86C-AADC3E7602F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53FF3DFE-C764-4426-B86C-AADC3E7602F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AC26223-D9AB-4DE0-B8C0-7AFE562E1708}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AC26223-D9AB-4DE0-B8C0-7AFE562E1708}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AC26223-D9AB-4DE0-B8C0-7AFE562E1708}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AC26223-D9AB-4DE0-B8C0-7AFE562E1708}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6AC26223-D9AB-4DE0-B8C0-7AFE562E1708} = {5A11DED2-D650-48DB-ABBE-622BA386B471}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1F704492-FF61-44C2-88FD-DB7F1D0C0754}
