@@ -9,12 +9,9 @@ namespace BackupManager
             var logger = new Logger();
 
             logger.LogMessage("start");
-
             var tm = new TaskManager(logger);
-            while(Console.ReadLine() != "/q")
-            {
 
-            }
+            Console.ReadLine();
         }
     }
 }

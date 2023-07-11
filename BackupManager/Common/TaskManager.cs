@@ -25,7 +25,6 @@ namespace BackupManager
 
                 var tasksModel = JsonConvert.DeserializeObject<TasksModel>(str);
 
-                /*
                 var schedulerFactory = new StdSchedulerFactory();
                 var scheduler = await schedulerFactory.GetScheduler();
                 await scheduler.Start();
@@ -55,7 +54,7 @@ namespace BackupManager
                         await scheduler.ScheduleJob(job, trigger);
                     }
                 }
-                */
+                
             }
             catch (Exception ex)
             {
