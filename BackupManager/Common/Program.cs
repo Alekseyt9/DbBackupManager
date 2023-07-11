@@ -11,9 +11,11 @@ namespace BackupManager
             logger.LogMessage("start");
             var tm = new TaskManager(logger);
 
-            var str = Console.ReadLine();
-            Console.WriteLine($"rl:'{str}'");
-            Console.ReadKey();
+            while (true)
+            {
+                Thread.Sleep(1000*10);
+            }
+
         }
     }
 }
